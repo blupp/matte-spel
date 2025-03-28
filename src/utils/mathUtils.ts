@@ -8,7 +8,7 @@ const generateOptions = (correctAnswer: number): number[] => {
   const options = [correctAnswer];
   
   while (options.length < 4) {
-    const option = generateRandomNumber(0, 20);
+    const option = generateRandomNumber(1, 20);
     if (!options.includes(option)) {
       options.push(option);
     }
@@ -20,15 +20,15 @@ const generateOptions = (correctAnswer: number): number[] => {
 
 export const generateQuestion = (): Question => {
   const operation: Operation = Math.random() < 0.5 ? '+' : '-';
-  const firstNumber = generateRandomNumber(0, 20);
+  const firstNumber = generateRandomNumber(1, 20);
   let secondNumber: number;
   let correctAnswer: number;
 
   if (operation === '+') {
-    secondNumber = generateRandomNumber(0, 20 - firstNumber);
+    secondNumber = generateRandomNumber(1, 20 - firstNumber);
     correctAnswer = firstNumber + secondNumber;
   } else {
-    secondNumber = generateRandomNumber(0, firstNumber);
+    secondNumber = generateRandomNumber(1, firstNumber - 1);
     correctAnswer = firstNumber - secondNumber;
   }
 

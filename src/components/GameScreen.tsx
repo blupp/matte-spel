@@ -1,5 +1,6 @@
 import { Question, GameState } from '../types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import ReactConfetti from 'react-confetti';
 
 interface GameScreenProps {
   questions: Question[];
@@ -16,8 +17,16 @@ export const GameScreen = ({ questions, onComplete }: GameScreenProps) => {
 
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const currentQuestion = questions[gameState.currentQuestion];
+
+  // Nollställ feedback när frågan ändras
+  useEffect(() => {
+    setShowFeedback(false);
+    setIsCorrect(false);
+    setShowConfetti(false);
+  }, [gameState.currentQuestion]);
 
   const playSound = (correct: boolean) => {
     const audio = new Audio(correct ? '/correct.mp3' : '/wrong.mp3');
@@ -29,6 +38,10 @@ export const GameScreen = ({ questions, onComplete }: GameScreenProps) => {
     setIsCorrect(correct);
     playSound(correct);
     setShowFeedback(true);
+    
+    if (correct) {
+      setShowConfetti(true);
+    }
 
     setTimeout(() => {
       if (correct) {
@@ -46,13 +59,21 @@ export const GameScreen = ({ questions, onComplete }: GameScreenProps) => {
           ...prev,
           currentQuestion: prev.currentQuestion + 1,
         }));
-        setShowFeedback(false);
       }
     }, 1500);
   };
 
   return (
     <div className="container">
+      {showConfetti && (
+        <ReactConfetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          recycle={false}
+          numberOfPieces={200}
+          onConfettiComplete={() => setShowConfetti(false)}
+        />
+      )}
       <div className="card">
         <div>
           <span>
