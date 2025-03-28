@@ -126,12 +126,14 @@ p {
 .option {
   padding: 1.5rem;
   border-radius: 1rem;
-  background-color: var(--white);
+  background-color: var(--white) !important;
   border: 2px solid var(--secondary-color);
   cursor: pointer;
   font-size: 2rem;
   transition: all 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
   touch-action: manipulation;
   user-select: none;
   outline: none;
@@ -144,8 +146,8 @@ p {
 
 .option:focus {
   outline: none;
-  background-color: var(--white);
-  color: var(--text-color);
+  background-color: var(--white) !important;
+  color: var(--text-color) !important;
 }
 
 .option:focus:not(:disabled):hover {
@@ -160,15 +162,15 @@ p {
 }
 
 .option.correct {
-  background-color: #4CAF50;
-  color: var(--white);
+  background-color: #4CAF50 !important;
+  color: var(--white) !important;
   border-color: #4CAF50;
   animation: celebrate 0.5s ease;
 }
 
 .option.incorrect {
-  background-color: #f44336;
-  color: var(--white);
+  background-color: #f44336 !important;
+  color: var(--white) !important;
   border-color: #f44336;
 }
 
@@ -194,4 +196,22 @@ p {
   height: 100%;
   pointer-events: none;
   z-index: 1000;
+}
+
+/* Specifikt för iOS/iPad */
+@supports (-webkit-touch-callout: none) {
+  .option:focus {
+    background-color: var(--white) !important;
+    color: var(--text-color) !important;
+  }
+  
+  .option.correct {
+    background-color: #4CAF50 !important;
+    color: var(--white) !important;
+  }
+  
+  .option.incorrect {
+    background-color: #f44336 !important;
+    color: var(--white) !important;
+  }
 }

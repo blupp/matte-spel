@@ -96,6 +96,7 @@ export const GameScreen = ({ questions, onComplete }: GameScreenProps) => {
               key={index}
               onClick={() => handleAnswer(option)}
               disabled={showFeedback}
+              onTouchStart={(e) => e.currentTarget.style.backgroundColor = 'var(--white)'}
               className={`option ${
                 showFeedback
                   ? option === currentQuestion.correctAnswer
