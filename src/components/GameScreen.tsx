@@ -1,5 +1,5 @@
 import { Question, GameState } from '../types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface GameScreenProps {
   questions: Question[];
