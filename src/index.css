@@ -199,13 +199,19 @@ p {
   z-index: 1000;
 }
 
-/* Specifikt för iOS/iPad */
+/* Uppdatera iOS-specifika regler */
 @supports (-webkit-touch-callout: none) {
+  .option {
+    background-color: var(--white) !important;
+    color: var(--text-color) !important;
+  }
+
   .option:focus {
     background-color: var(--white) !important;
     color: var(--text-color) !important;
   }
   
+  /* Endast override:a färgerna när knappen faktiskt är correct/incorrect */
   .option.correct {
     background-color: #4CAF50 !important;
     color: var(--white) !important;
