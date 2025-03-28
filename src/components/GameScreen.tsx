@@ -34,6 +34,11 @@ export const GameScreen = ({ questions, onComplete }: GameScreenProps) => {
   };
 
   const handleAnswer = (answer: number) => {
+    // Ta bort fokus från knappen som klickades
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+
     const correct = answer === currentQuestion.correctAnswer;
     setIsCorrect(correct);
     playSound(correct);

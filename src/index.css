@@ -134,9 +134,21 @@ p {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   user-select: none;
+  outline: none;
 }
 
 .option:hover {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+.option:focus {
+  outline: none;
+  background-color: var(--white);
+  color: var(--text-color);
+}
+
+.option:focus:not(:disabled):hover {
   background-color: var(--secondary-color);
   color: var(--white);
 }
