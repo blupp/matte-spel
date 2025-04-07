@@ -1,4 +1,5 @@
 import { GameLevel } from '../types';
+import { FloatingMathSymbols } from './FloatingMathSymbols';
 
 interface StartScreenProps {
   onStart: (level: GameLevel) => void;
@@ -7,8 +8,9 @@ interface StartScreenProps {
 export const StartScreen = ({ onStart }: StartScreenProps) => {
   return (
     <div className="container">
+      <FloatingMathSymbols />
       <div className="card">
-        <h1>🎯 Matte Spelet 🎯</h1>
+        <h1>⭐ Matte-kul ⭐</h1>
         <p>
           Hej! Är du redo att lösa några roliga matteuppgifter? 
           Du behöver få 9 av 10 rätt för att klara spelet! 
