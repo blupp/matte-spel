@@ -33,7 +33,8 @@ function App() {
       {gamePhase === 'playing' && (
         <GameScreen 
           questions={questions} 
-          onComplete={handleComplete} 
+          onComplete={handleComplete}
+          onBack={() => setGamePhase('start')}
         />
       )}
       {gamePhase === 'complete' && (

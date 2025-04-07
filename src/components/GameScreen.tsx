@@ -5,9 +5,10 @@ import ReactConfetti from 'react-confetti';
 interface GameScreenProps {
   questions: Question[];
   onComplete: (correctAnswers: number) => void;
+  onBack: () => void;
 }
 
-export const GameScreen = ({ questions, onComplete }: GameScreenProps) => {
+export const GameScreen = ({ questions, onComplete, onBack }: GameScreenProps) => {
   const [gameState, setGameState] = useState<GameState>({
     currentQuestion: 0,
     totalQuestions: questions.length,
@@ -70,6 +71,13 @@ export const GameScreen = ({ questions, onComplete }: GameScreenProps) => {
 
   return (
     <div className="container">
+      <button 
+        className="back-button"
+        onClick={onBack}
+        aria-label="Gå tillbaka"
+      >
+        ←
+      </button>
       {showConfetti && (
         <ReactConfetti
           width={window.innerWidth}
