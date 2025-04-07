@@ -110,11 +110,11 @@ const generateLevel2Question = (): Question => {
 
 const generateLevel3Question = (): Question => {
   // Define different sequence patterns
-  const patterns = [
+  const patterns: Array<((start: number, step?: number) => number[])> = [
     // Increasing by constant
-    (start: number, step: number) => [start, start + step, start + step * 2, start + step * 3],
+    (start: number, step?: number) => [start, start + step!, start + step! * 2, start + step! * 3],
     // Decreasing by constant
-    (start: number, step: number) => [start, start - step, start - step * 2, start - step * 3],
+    (start: number, step?: number) => [start, start - step!, start - step! * 2, start - step! * 3],
     // Even numbers
     (start: number) => [start, start + 2, start + 4, start + 6],
     // Odd numbers
