@@ -20,6 +20,7 @@ export const GameScreen = ({ questions, onComplete, onBack, currentLevel }: Game
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const currentQuestion = questions[gameState.currentQuestion];
 
@@ -28,6 +29,8 @@ export const GameScreen = ({ questions, onComplete, onBack, currentLevel }: Game
     setShowFeedback(false);
     setIsCorrect(false);
     setShowConfetti(false);
+    // Animate progress bar
+    setProgress((gameState.currentQuestion / gameState.totalQuestions) * 100);
   }, [gameState.currentQuestion]);
 
   const playSound = (correct: boolean) => {
@@ -83,12 +86,20 @@ export const GameScreen = ({ questions, onComplete, onBack, currentLevel }: Game
         <ReactConfetti
           width={window.innerWidth}
           height={window.innerHeight}
-          recycle={false}
-          numberOfPieces={200}
+          recycle={true}
+          numberOfPieces={500}
+          gravity={0.3}
+          wind={0.05}
           onConfettiComplete={() => setShowConfetti(false)}
         />
       )}
       <div className="card">
+        <div className="progress-container">
+          <div 
+            className="progress-bar"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
         <div>
           <span>
             Fråga {gameState.currentQuestion + 1} av {gameState.totalQuestions}
