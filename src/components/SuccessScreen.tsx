@@ -1,9 +1,11 @@
 interface SuccessScreenProps {
   correctAnswers: number;
   onPlayAgain: () => void;
+  currentLevel: number;
+  timeTaken: number;
 }
 
-export const SuccessScreen = ({ correctAnswers, onPlayAgain }: SuccessScreenProps) => {
+export const SuccessScreen = ({ correctAnswers, onPlayAgain, currentLevel, timeTaken }: SuccessScreenProps) => {
   const hasPassed = correctAnswers >= 9;
 
   // Skapa tidstämpel i svenskt format
@@ -22,18 +24,29 @@ export const SuccessScreen = ({ correctAnswers, onPlayAgain }: SuccessScreenProp
     return `${day} ${date} ${month} ${hours}:${minutes}`;
   };
 
+  // Formatera tiden till minuter och sekunder
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes} min ${remainingSeconds} sek`;
+  };
+
   return (
-    <div className="container">
+    <div className={`container ${currentLevel === 2 ? 'level-2' : ''}`}>
       <div className="card">
         <div className="question">
           {hasPassed ? '✨ Grattis! ✨' : '😢 Tyvärr! 😢'}
         </div>
         
         <p>
-          Du fick {correctAnswers} av 10 rätt!
+          Du fick {correctAnswers} av 10 rätt på nivå {currentLevel}!
           {hasPassed 
             ? ' Du är jättebra! 🎉' 
             : ' Du behöver 9 rätt för att klara spelet. Vill du försöka igen?'}
+        </p>
+
+        <p>
+          Tid: {formatTime(timeTaken)}
         </p>
 
         <button 

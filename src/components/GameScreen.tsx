@@ -4,7 +4,7 @@ import ReactConfetti from 'react-confetti';
 
 interface GameScreenProps {
   questions: Question[];
-  onComplete: (correctAnswers: number) => void;
+  onComplete: (correctAnswers: number, timeTaken: number) => void;
   onBack: () => void;
   currentLevel: number;
 }
@@ -21,8 +21,14 @@ export const GameScreen = ({ questions, onComplete, onBack, currentLevel }: Game
   const [isCorrect, setIsCorrect] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [startTime, setStartTime] = useState<number | null>(null);
 
   const currentQuestion = questions[gameState.currentQuestion];
+
+  // Starta tidtagning när komponenten mountas
+  useEffect(() => {
+    setStartTime(Date.now());
+  }, []);
 
   // Nollställ feedback när frågan ändras
   useEffect(() => {
@@ -63,7 +69,8 @@ export const GameScreen = ({ questions, onComplete, onBack, currentLevel }: Game
 
       if (gameState.currentQuestion === gameState.totalQuestions - 1) {
         setGameState(prev => ({ ...prev, isComplete: true }));
-        onComplete(correct ? gameState.correctAnswers + 1 : gameState.correctAnswers);
+        const timeTaken = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+        onComplete(correct ? gameState.correctAnswers + 1 : gameState.correctAnswers, timeTaken);
       } else {
         setGameState(prev => ({
           ...prev,
