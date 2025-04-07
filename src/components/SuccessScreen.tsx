@@ -32,7 +32,7 @@ export const SuccessScreen = ({ correctAnswers, onPlayAgain, currentLevel, timeT
   };
 
   return (
-    <div className={`container ${currentLevel === 2 ? 'level-2' : ''}`}>
+    <div className={`container ${currentLevel === 2 ? 'level-2' : currentLevel === 3 ? 'level-3' : ''}`}>
       <div className="card">
         <div className="question">
           {hasPassed ? '✨ Grattis! ✨' : '😢 Tyvärr! 😢'}

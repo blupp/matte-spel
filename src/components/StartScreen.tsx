@@ -29,6 +29,14 @@ export const StartScreen = ({ onStart }: StartScreenProps) => {
           >
             Starta Level 2 🎮
           </button>
+
+          <button 
+            onClick={() => onStart(3)}
+            className="btn btn-tertiary"
+            style={{ marginTop: '1rem' }}
+          >
+            Starta Level 3 🧩
+          </button>
         </div>
       </div>
     </div>

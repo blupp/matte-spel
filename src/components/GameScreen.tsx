@@ -81,7 +81,7 @@ export const GameScreen = ({ questions, onComplete, onBack, currentLevel }: Game
   };
 
   return (
-    <div className={`container ${currentLevel === 2 ? 'level-2' : ''}`}>
+    <div className={`container ${currentLevel === 2 ? 'level-2' : currentLevel === 3 ? 'level-3' : ''}`}>
       <button 
         className="back-button"
         onClick={onBack}
@@ -114,7 +114,16 @@ export const GameScreen = ({ questions, onComplete, onBack, currentLevel }: Game
         </div>
 
         <div className="question">
-          {currentQuestion.expression} = ?
+          {currentLevel === 3 ? (
+            <>
+              <span className="number-box">{currentQuestion.expression.split(' ')[0].replace('[', '').replace(']', '')}</span>
+              <span className="number-box">{currentQuestion.expression.split(' ')[1].replace('[', '').replace(']', '')}</span>
+              <span className="number-box">{currentQuestion.expression.split(' ')[2].replace('[', '').replace(']', '')}</span>
+              <span className="question-mark">?</span>
+            </>
+          ) : (
+            `${currentQuestion.expression} = ?`
+          )}
         </div>
 
         <div className="options">

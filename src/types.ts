@@ -1,4 +1,4 @@
-export type GameLevel = 1 | 2;
+export type GameLevel = 1 | 2 | 3;
 
 export type Operation = '+' | '-';
 

@@ -108,8 +108,65 @@ const generateLevel2Question = (): Question => {
   };
 };
 
+const generateLevel3Question = (): Question => {
+  // Define different sequence patterns
+  const patterns = [
+    // Increasing by constant
+    (start: number, step: number) => [start, start + step, start + step * 2, start + step * 3],
+    // Decreasing by constant
+    (start: number, step: number) => [start, start - step, start - step * 2, start - step * 3],
+    // Even numbers
+    (start: number) => [start, start + 2, start + 4, start + 6],
+    // Odd numbers
+    (start: number) => [start, start + 2, start + 4, start + 6]
+  ];
+
+  // Randomly select a pattern
+  const patternIndex = Math.floor(Math.random() * patterns.length);
+  const pattern = patterns[patternIndex];
+
+  let sequence: number[] = [];
+  let valid = false;
+
+  while (!valid) {
+    // Generate sequence based on pattern
+    if (patternIndex < 2) {
+      // For constant increase/decrease patterns
+      const start = generateRandomNumber(0, 20);
+      const step = generateRandomNumber(1, 5);
+      sequence = pattern(start, step);
+    } else {
+      // For even/odd patterns
+      const start = generateRandomNumber(0, 20);
+      sequence = pattern(start);
+    }
+
+    // Validate sequence
+    valid = sequence.every(num => num >= 0 && num <= 30);
+  }
+
+  // Create question with first three numbers in boxes and question mark
+  const question = `[${sequence[0]}] [${sequence[1]}] [${sequence[2]}] [?]`;
+  const correctAnswer = sequence[3];
+
+  return {
+    expression: question,
+    correctAnswer,
+    options: generateOptions(correctAnswer),
+  };
+};
+
 export const generateQuestion = (level: number): Question => {
-  return level === 1 ? generateLevel1Question() : generateLevel2Question();
+  switch (level) {
+    case 1:
+      return generateLevel1Question();
+    case 2:
+      return generateLevel2Question();
+    case 3:
+      return generateLevel3Question();
+    default:
+      return generateLevel1Question();
+  }
 };
 
 export const generateQuestions = (count: number, level: number): Question[] => {
