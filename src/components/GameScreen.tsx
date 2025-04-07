@@ -95,7 +95,7 @@ export const GameScreen = ({ questions, onComplete, onBack }: GameScreenProps) =
         </div>
 
         <div className="question">
-          {currentQuestion.firstNumber} {currentQuestion.operation} {currentQuestion.secondNumber} = ?
+          {currentQuestion.expression} = ?
         </div>
 
         <div className="options">

@@ -5,8 +5,6 @@ interface StartScreenProps {
 }
 
 export const StartScreen = ({ onStart }: StartScreenProps) => {
-  const isDev = import.meta.env.DEV;
-
   return (
     <div className="container">
       <div className="card">
@@ -24,15 +22,13 @@ export const StartScreen = ({ onStart }: StartScreenProps) => {
             Starta Level 1 🚀
           </button>
           
-          {isDev && (
-            <button 
-              onClick={() => onStart(2)}
-              className="btn btn-secondary"
-              style={{ marginTop: '1rem' }}
-            >
-              Starta Level 2 🎮
-            </button>
-          )}
+          <button 
+            onClick={() => onStart(2)}
+            className="btn btn-secondary"
+            style={{ marginTop: '1rem' }}
+          >
+            Starta Level 2 🎮
+          </button>
         </div>
       </div>
     </div>

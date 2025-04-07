@@ -3,9 +3,7 @@ export type GameLevel = 1 | 2;
 export type Operation = '+' | '-';
 
 export interface Question {
-  firstNumber: number;
-  secondNumber: number;
-  operation: Operation;
+  expression: string;
   correctAnswer: number;
   options: number[];
 }

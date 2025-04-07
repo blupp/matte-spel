@@ -10,14 +10,14 @@ type GamePhase = 'start' | 'playing' | 'complete'
 
 function App() {
   const [gamePhase, setGamePhase] = useState<GamePhase>('start')
-  const [questions, setQuestions] = useState(generateQuestions(10))
+  const [questions, setQuestions] = useState(generateQuestions(10, 1))
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [currentLevel, setCurrentLevel] = useState<GameLevel>(1)
 
   const handleStart = (level: GameLevel) => {
     setCurrentLevel(level)
     setGamePhase('playing')
-    setQuestions(generateQuestions(10))
+    setQuestions(generateQuestions(10, level))
     setCorrectAnswers(0)
   }
 
