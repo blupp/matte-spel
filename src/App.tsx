@@ -3,6 +3,7 @@ import { StartScreen } from './components/StartScreen'
 import { GameScreen } from './components/GameScreen'
 import { SuccessScreen } from './components/SuccessScreen'
 import { generateQuestions } from './utils/mathUtils'
+import { GameLevel } from './types'
 import './App.css'
 
 type GamePhase = 'start' | 'playing' | 'complete'
@@ -11,8 +12,10 @@ function App() {
   const [gamePhase, setGamePhase] = useState<GamePhase>('start')
   const [questions, setQuestions] = useState(generateQuestions(10))
   const [correctAnswers, setCorrectAnswers] = useState(0)
+  const [currentLevel, setCurrentLevel] = useState<GameLevel>(1)
 
-  const handleStart = () => {
+  const handleStart = (level: GameLevel) => {
+    setCurrentLevel(level)
     setGamePhase('playing')
     setQuestions(generateQuestions(10))
     setCorrectAnswers(0)

@@ -1,3 +1,5 @@
+export type GameLevel = 1 | 2;
+
 export type Operation = '+' | '-';
 
 export interface Question {
