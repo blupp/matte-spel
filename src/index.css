@@ -72,6 +72,10 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+.container.level-2 {
+  background: linear-gradient(135deg, #ff6b6b, var(--primary-color));
+}
+
 .card {
   background: var(--white);
   padding: 2rem;

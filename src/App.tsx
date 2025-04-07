@@ -38,6 +38,7 @@ function App() {
           questions={questions} 
           onComplete={handleComplete}
           onBack={() => setGamePhase('start')}
+          currentLevel={currentLevel}
         />
       )}
       {gamePhase === 'complete' && (

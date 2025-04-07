@@ -6,9 +6,10 @@ interface GameScreenProps {
   questions: Question[];
   onComplete: (correctAnswers: number) => void;
   onBack: () => void;
+  currentLevel: number;
 }
 
-export const GameScreen = ({ questions, onComplete, onBack }: GameScreenProps) => {
+export const GameScreen = ({ questions, onComplete, onBack, currentLevel }: GameScreenProps) => {
   const [gameState, setGameState] = useState<GameState>({
     currentQuestion: 0,
     totalQuestions: questions.length,
@@ -70,7 +71,7 @@ export const GameScreen = ({ questions, onComplete, onBack }: GameScreenProps) =
   };
 
   return (
-    <div className="container">
+    <div className={`container ${currentLevel === 2 ? 'level-2' : ''}`}>
       <button 
         className="back-button"
         onClick={onBack}
