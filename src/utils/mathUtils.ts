@@ -171,4 +171,10 @@ export const generateQuestion = (level: number): Question => {
 
 export const generateQuestions = (count: number, level: number): Question[] => {
   return Array.from({ length: count }, () => generateQuestion(level));
-}; 
+};
+
+export {
+  generateLevel1Question,
+  generateLevel2Question,
+  generateLevel3Question,
+};
