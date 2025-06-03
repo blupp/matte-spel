@@ -45,6 +45,13 @@ För att bygga produktionversionen:
 npm run build
 ```
 
+## Tester
+
+Kör alla enhetstester med:
+```bash
+npm run test
+```
+
 ## Hosting
 
 Efter byggning finns de färdiga filerna i `dist`-mappen som kan hostas på vilken webbserver som helst.
