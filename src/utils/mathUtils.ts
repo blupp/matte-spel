@@ -117,8 +117,11 @@ const generateLevel3Question = (): Question => {
     (start: number, step?: number) => [start, start - step!, start - step! * 2, start - step! * 3],
     // Even numbers
     (start: number) => [start, start + 2, start + 4, start + 6],
-    // Odd numbers
-    (start: number) => [start, start + 2, start + 4, start + 6]
+    // Odd numbers - ensure starting value is odd
+    (start: number) => {
+      const oddStart = start % 2 === 0 ? start + 1 : start;
+      return [oddStart, oddStart + 2, oddStart + 4, oddStart + 6];
+    }
   ];
 
   // Randomly select a pattern
