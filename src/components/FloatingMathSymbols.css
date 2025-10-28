@@ -10,9 +10,11 @@
 
 .floating-symbol {
   position: absolute;
-  font-size: 12rem;
-  opacity: 0.1;
-  color: #666;
+  font-size: clamp(6rem, 16vw, 12rem);
+  opacity: 0.18;
+  color: rgba(255, 255, 255, 0.65);
+  filter: drop-shadow(0 12px 24px rgba(62, 35, 95, 0.15));
+  mix-blend-mode: screen;
   animation: float var(--duration) infinite ease-in-out;
   animation-delay: var(--delay);
   transform: translate(var(--start-x), var(--start-y));
