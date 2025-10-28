@@ -51,9 +51,20 @@ export const SuccessScreen = ({ correctAnswers, onPlayAgain, currentLevel, timeT
 
   return (
     <div className={`container ${currentLevel === 2 ? 'level-2' : currentLevel === 3 ? 'level-3' : ''}`}>
-      <div className="card">
-        <div className="question">
-          {hasPassed ? '✨ Grattis! ✨' : '😢 Tyvärr! 😢'}
+      <div className="card success-card">
+        <div className="success-icon" aria-hidden="true">
+          {hasPassed ? '🏆' : '💪'}
+        </div>
+
+        <div className="game-header">
+          <span className={`level-chip level-${currentLevel}`}>
+            Nivå {currentLevel}
+          </span>
+          <span className="game-progress-label">10 frågor klara!</span>
+        </div>
+
+        <div className="question-bubble" style={{ fontSize: '2.2rem', minHeight: 'auto' }}>
+          {hasPassed ? '✨ Fantastiskt jobbat! ✨' : 'Nästan! Vi klarar det nästa gång!'}
         </div>
         
         <p>
@@ -63,26 +74,26 @@ export const SuccessScreen = ({ correctAnswers, onPlayAgain, currentLevel, timeT
             : ` Du behöver ${PASS_THRESHOLD} rätt för att klara spelet. Vill du försöka igen?`}
         </p>
 
-        <p>
-          Tid: {formatTime(timeTaken)}
+        <p className="success-message">
+          Du prickade in {correctAnswers} av 10 rätt på nivå {currentLevel}.{hasPassed
+            ? ' Visa den här skärmen för att få din belöning!'
+            : ' Samla 9 rätt nästa gång så väntar en belöning.'}
         </p>
 
-        <button 
+        <div className="stat-bubbles">
+          <div className="stat-bubble">⏱ Tid: {formatTime(timeTaken)}</div>
+          <div className="stat-bubble">⭐ Stjärnor: {correctAnswers}</div>
+        </div>
+
+        <button
           onClick={onPlayAgain}
           className={`btn ${hasPassed ? 'btn-primary' : 'btn-secondary'}`}
         >
-          {hasPassed ? 'Spela Igen 🎮' : 'Försök Igen 🔄'}
+          {hasPassed ? 'Spela igen 🎉' : 'Jag provar igen! 🔄'}
         </button>
 
-        <div style={{ 
-          marginTop: '2rem', 
-          fontSize: '0.8rem', 
-          color: '#666',
-          opacity: 0.8 
-        }}>
-          {getSwedishTimestamp()}
-        </div>
+        <div className="timestamp">{getSwedishTimestamp()}</div>
       </div>
     </div>
   );
-}; 
+};

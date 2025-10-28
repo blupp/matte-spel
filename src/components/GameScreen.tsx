@@ -82,7 +82,7 @@ export const GameScreen = ({ questions, onComplete, onBack, currentLevel }: Game
 
   return (
     <div className={`container ${currentLevel === 2 ? 'level-2' : currentLevel === 3 ? 'level-3' : ''}`}>
-      <button 
+      <button
         className="back-button"
         onClick={onBack}
         aria-label="Gå tillbaka"
@@ -100,26 +100,27 @@ export const GameScreen = ({ questions, onComplete, onBack, currentLevel }: Game
           onConfettiComplete={() => setShowConfetti(false)}
         />
       )}
-      <div className="card">
-        <div className="progress-container">
-          <div 
-            className="progress-bar"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        <div>
-          <span>
+      <div className="card game-card">
+        <div className="game-header">
+          <span className={`level-chip level-${currentLevel}`}>
+            Nivå {currentLevel} ⭐
+          </span>
+          <span className="game-progress-label">
             Fråga {gameState.currentQuestion + 1} av {gameState.totalQuestions}
           </span>
         </div>
 
-        <div className="question">
+        <div className="progress-container">
+          <div className="progress-bar" style={{ width: `${progress}%` }} />
+        </div>
+
+        <div className="question-bubble">
           {currentLevel === 3 ? (
             <>
               <span className="number-box">{currentQuestion.expression.split(' ')[0].replace('[', '').replace(']', '')}</span>
               <span className="number-box">{currentQuestion.expression.split(' ')[1].replace('[', '').replace(']', '')}</span>
               <span className="number-box">{currentQuestion.expression.split(' ')[2].replace('[', '').replace(']', '')}</span>
-              <span className="question-mark">?</span>
+              <span className="number-box question-mark">?</span>
             </>
           ) : (
             `${currentQuestion.expression} = ?`
@@ -132,7 +133,7 @@ export const GameScreen = ({ questions, onComplete, onBack, currentLevel }: Game
               key={index}
               onClick={() => handleAnswer(option)}
               disabled={showFeedback}
-              onTouchStart={(e) => e.currentTarget.style.backgroundColor = 'var(--white)'}
+              onTouchStart={(e) => (e.currentTarget.style.backgroundColor = 'var(--white)')}
               className={`option ${
                 showFeedback
                   ? option === currentQuestion.correctAnswer
@@ -150,10 +151,10 @@ export const GameScreen = ({ questions, onComplete, onBack, currentLevel }: Game
 
         {showFeedback && (
           <div className={`feedback ${isCorrect ? 'correct' : 'incorrect'}`}>
-            {isCorrect ? 'Rätt! 🎉' : 'Fel! 😢'}
+            {isCorrect ? 'Rätt! 🎉' : 'Försök igen! 💪'}
           </div>
         )}
       </div>
     </div>
   );
-}; 
+};

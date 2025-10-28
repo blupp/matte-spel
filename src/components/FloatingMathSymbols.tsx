@@ -14,8 +14,8 @@ export const FloatingMathSymbols = () => {
         const startX = Math.random() * window.innerWidth;
         const startY = Math.random() * window.innerHeight;
         
-        // Generate random size between 24rem and 40rem
-        const size = 24 + Math.random() * 16;
+        // Generate random size between 16rem and 32rem
+        const size = 16 + Math.random() * 16;
         
         return (
           <div
