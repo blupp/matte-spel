@@ -66,13 +66,6 @@ export const SuccessScreen = ({ correctAnswers, onPlayAgain, currentLevel, timeT
         <div className="question-bubble" style={{ fontSize: '2.2rem', minHeight: 'auto' }}>
           {hasPassed ? '✨ Fantastiskt jobbat! ✨' : 'Nästan! Vi klarar det nästa gång!'}
         </div>
-        
-        <p>
-          Du fick {correctAnswers} av {TOTAL_QUESTIONS} rätt på nivå {currentLevel}!
-          {hasPassed 
-            ? ' Du är jättebra! 🎉' 
-            : ` Du behöver ${PASS_THRESHOLD} rätt för att klara spelet. Vill du försöka igen?`}
-        </p>
 
         <p className="success-message">
           Du prickade in {correctAnswers} av 10 rätt på nivå {currentLevel}.{hasPassed
