@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { StartScreen } from './components/StartScreen'
 import { GameScreen } from './components/GameScreen'
 import { SuccessScreen } from './components/SuccessScreen'
+import Results from './components/Results'
 import { generateQuestions } from './utils/mathUtils'
 import { GameLevel } from './types'
 import './App.css'
@@ -33,7 +35,7 @@ function App() {
     setGamePhase('start')
   }
 
-  return (
+  const GameContent = () => (
     <div className="min-h-screen">
       {gamePhase === 'start' && <StartScreen onStart={handleStart} />}
       {gamePhase === 'playing' && (
@@ -53,6 +55,28 @@ function App() {
         />
       )}
     </div>
+  )
+
+  return (
+    <Router>
+      <div className="min-h-screen">
+        <nav className="bg-white shadow-md p-4">
+          <div className="container mx-auto flex justify-between items-center">
+            <Link to="/" className="text-xl font-bold text-blue-600 hover:text-blue-800">
+              Matte-kul
+            </Link>
+            <Link to="/results" className="text-blue-600 hover:text-blue-800">
+              Se Resultat
+            </Link>
+          </div>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<GameContent />} />
+          <Route path="/results" element={<Results />} />
+        </Routes>
+      </div>
+    </Router>
   )
 }
 

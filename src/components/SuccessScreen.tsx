@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { saveResult } from '../api/client';
+
 interface SuccessScreenProps {
   correctAnswers: number;
   onPlayAgain: () => void;
@@ -6,29 +9,44 @@ interface SuccessScreenProps {
 }
 
 export const SuccessScreen = ({ correctAnswers, onPlayAgain, currentLevel, timeTaken }: SuccessScreenProps) => {
-  const hasPassed = correctAnswers >= 9;
+  const TOTAL_QUESTIONS = 10;
+  const PASS_THRESHOLD = 9;
+  const hasPassed = correctAnswers >= PASS_THRESHOLD;
 
-  // Skapa tidstämpel i svenskt format
-  const getSwedishTimestamp = () => {
-    const days = ['sön', 'mån', 'tis', 'ons', 'tor', 'fre', 'lör'];
-    const months = ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 
-                   'juli', 'augusti', 'september', 'oktober', 'november', 'december'];
-    
-    const now = new Date();
-    const day = days[now.getDay()];
-    const date = now.getDate();
-    const month = months[now.getMonth()];
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    
-    return `${day} ${date} ${month} ${hours}:${minutes}`;
-  };
+  useEffect(() => {
+    // Spara resultatet när komponenten mountas
+    const saveGameResult = async () => {
+      try {
+        await saveResult({
+          level: currentLevel,
+          correctAnswers,
+          totalQuestions: TOTAL_QUESTIONS,
+          timeSpent: timeTaken,
+          passed: hasPassed
+        });
+      } catch (error) {
+        console.error('Failed to save result:', error);
+      }
+    };
 
-  // Formatera tiden till minuter och sekunder
-  const formatTime = (seconds: number) => {
+    saveGameResult();
+  }, []); // Tom dependency array eftersom vi bara vill spara en gång
+
+  const formatTime = (seconds: number): string => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes} min ${remainingSeconds} sek`;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+
+  const getSwedishTimestamp = () => {
+    return new Date().toLocaleString('sv-SE', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
   };
 
   return (
@@ -39,10 +57,10 @@ export const SuccessScreen = ({ correctAnswers, onPlayAgain, currentLevel, timeT
         </div>
         
         <p>
-          Du fick {correctAnswers} av 10 rätt på nivå {currentLevel}!
+          Du fick {correctAnswers} av {TOTAL_QUESTIONS} rätt på nivå {currentLevel}!
           {hasPassed 
             ? ' Du är jättebra! 🎉' 
-            : ' Du behöver 9 rätt för att klara spelet. Vill du försöka igen?'}
+            : ` Du behöver ${PASS_THRESHOLD} rätt för att klara spelet. Vill du försöka igen?`}
         </p>
 
         <p>
